@@ -79,9 +79,15 @@ public class loginBDD extends env_target {
     public void userGetVerifyLoginResult(String result) {
         Duration duration = Duration.ofSeconds(10);
         WebDriverWait wait = new WebDriverWait(driver, duration);
-        wait.until(
-                ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@id='header_container']/div[2]/span"))
-        );
+        if (result == "passed") {
+            wait.until(ExpectedConditions.or(
+                    ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@id='header_container']/div[2]/span"))
+            ));
+        } else if (result == "failed") {
+            wait.until(ExpectedConditions.or(
+                    ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("error-button"))
+            ));
+        }
         driver.quit();
     }
 
