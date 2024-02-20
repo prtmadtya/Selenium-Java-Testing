@@ -50,4 +50,39 @@ public class loginBDD extends env_target {
         );
         driver.quit();
     }
+
+    //Negative Case with invalid credentials
+    @When("User fill invalid username and password")
+    public void userFillInvalidUsernameAndPassword() {
+        driver.findElement(By.name("user-name")).sendKeys("standard");
+        driver.findElement(By.id("password")).sendKeys("secret_sauce");
+    }
+
+    @Then("User get error message")
+    public void userGetErrorMessage() {
+        Duration duration = Duration.ofSeconds(10);
+        WebDriverWait wait = new WebDriverWait(driver, duration);
+        wait.until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("error-button"))
+        );
+        driver.quit();
+    }
+
+    //Feature with TDD
+    @When("^User input (.*) and (.*)$")
+    public void userInputUsernameAndPassword(String username, String password) {
+        driver.findElement(By.name("user-name")).sendKeys(username);
+        driver.findElement(By.id("password")).sendKeys(password);
+    }
+
+    @Then("^User get verify login (.*)$")
+    public void userGetVerifyLoginResult(String result) {
+        Duration duration = Duration.ofSeconds(10);
+        WebDriverWait wait = new WebDriverWait(driver, duration);
+        wait.until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@id='header_container']/div[2]/span"))
+        );
+        driver.quit();
+    }
+
 }
