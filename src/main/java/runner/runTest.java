@@ -12,4 +12,5 @@ import org.junit.runner.RunWith;
         plugin = {"pretty", "html:target/RegressionReport.html"}
 )
 public class runTest {
+
 }
